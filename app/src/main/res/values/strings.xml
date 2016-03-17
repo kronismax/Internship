@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Internship</string>
+    <string name="utilities">Public utilities</string>
+    <string name="inWork">In progress</string>
+    <string name="description_text">
+        When viewed in an inertial reference frame, an object either remains at rest or continues to move at a constant velocity, unless acted upon by a force.
+    </string>
+    <string name="toolbarTitle">CE-1257218</string>
+    <string name="created_text">Created</string>
+    <string name="registered_text">Registrated</string>
+    <string name="assigned_text">Assigned</string>
+    <string name="responsible_text">Resposible</string>
+    <string name="responsible_name">Denipropetrovsk MVK</string>
+    <string name="created_date">25 december 2016</string>
+    <string name="registered_date">26 december 2016</string>
+    <string name="assigned_date">29 december 2016</string>
+
+</resources>

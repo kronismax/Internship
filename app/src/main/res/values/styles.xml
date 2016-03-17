@@ -1,0 +1,43 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="TaskNames" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textSize">@dimen/text_size</item>
+        <item name="android:paddingTop">@dimen/text_padding</item>
+        <item name="android:paddingBottom">@dimen/text_padding</item>
+
+    </style>
+
+    <style name="TaskDates" parent="TaskNames">
+        <item name="android:textColor">?android:textColorSecondary</item>
+
+    </style>
+
+    <style name="View" parent="Base.TextAppearance.AppCompat">
+        <item name="android:layout_marginTop">@dimen/view_margin</item>
+        <item name="android:layout_marginBottom">@dimen/view_margin</item>
+        <item name="android:background">@color/viewBackground</item>
+        <item name="android:layout_height">2dp</item>
+
+    </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+</resources>
