@@ -1,4 +1,4 @@
-    # Internship task 1.
+# Internship task 1.
 * Put dimens and text sizes into res folder                   +
 * Minimal SDK version = 16                                    +
 * Only portrait orientation                                   +
