@@ -23,17 +23,17 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
+//[Comment] Wrong toolbar and status bar color
 public class MainActivity extends AppCompatActivity {
     public final static String[] imageUrls = new String[]{
             "https://lh6.googleusercontent.com/-8HO-4vIFnlw/URquZnsFgtI/AAAAAAAAAbs/WT8jViTF7vw/s1024/Antelope%252520Hallway.jpg",
             "https://lh5.googleusercontent.com/-0BDXkYmckbo/URquhKFW84I/AAAAAAAAAbs/ogQtHCTk2JQ/s1024/Closed%252520Door.jpg",
             "https://lh3.googleusercontent.com/-PyggXXZRykM/URquh-kVvoI/AAAAAAAAAbs/hFtDwhtrHHQ/s1024/Colorado%252520River%252520Sunset.jpg",
             "https://lh4.googleusercontent.com/-e9NHZ5k5MSs/URqvMIBZjtI/AAAAAAAAAbs/1fV810rDNfQ/s1024/Yosemite%252520Tree.jpg",
-    };
+    }; //[Comment] Hardcode. Move this strings into <string-array />
 
     @Bind(R.id.toolbar) Toolbar mToolbar;
-    @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
+    @Bind(R.id.recycler_view) RecyclerView mRecyclerView; //[Comment] Wrong formatter
 
     @OnClick({ R.id.createdTv,
             R.id.createdDateTv,
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.toolbarTitle);
-//        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow));
+//        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow)); [Comment] Don't leave commented code in production version
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
+    //[Comment] ImageAdapter shouldn't be internal class
     public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
         private List<String> mImageList;
         private Context mContext;
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
         public ImageAdapter(List<String> mImageList, Context context) {
             mContext = context;
-            this.mImageList = mImageList;
+            this.mImageList = mImageList; // [Comment] mImageList = imageList
         }
 
         @Override
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finish();
+        finish(); //[Comment] You don't need this. You have single activity.
     }
 
 }
