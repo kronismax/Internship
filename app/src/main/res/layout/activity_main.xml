@@ -30,6 +30,8 @@
                     android:paddingBottom="7dp"
                     android:text="@string/utilities" />
 
+                <!--[Comment] Hardcode -->
+
                 <TextView
                     android:id="@+id/statusTv"
                     style="@style/TaskNames"
@@ -45,6 +47,8 @@
                     android:paddingTop="5dp"
                     android:text="@string/inWork"
                     android:textColor="#FFF" />
+
+                <!-- [Comment] Padding hardcode, color hardcode-->
 
                 <View
                     android:id="@+id/view"
