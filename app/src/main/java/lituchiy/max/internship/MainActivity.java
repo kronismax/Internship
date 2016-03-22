@@ -19,12 +19,8 @@ import lituchiy.max.internship.adapter.ImageAdapter;
 
 //[Comment] Wrong toolbar and status bar color
 public class MainActivity extends AppCompatActivity {
-    public final static String[] imageUrls = new String[]{
-            "https://lh6.googleusercontent.com/-8HO-4vIFnlw/URquZnsFgtI/AAAAAAAAAbs/WT8jViTF7vw/s1024/Antelope%252520Hallway.jpg",
-            "https://lh5.googleusercontent.com/-0BDXkYmckbo/URquhKFW84I/AAAAAAAAAbs/ogQtHCTk2JQ/s1024/Closed%252520Door.jpg",
-            "https://lh3.googleusercontent.com/-PyggXXZRykM/URquh-kVvoI/AAAAAAAAAbs/hFtDwhtrHHQ/s1024/Colorado%252520River%252520Sunset.jpg",
-            "https://lh4.googleusercontent.com/-e9NHZ5k5MSs/URqvMIBZjtI/AAAAAAAAAbs/1fV810rDNfQ/s1024/Yosemite%252520Tree.jpg",
-    }; //[Comment] Hardcode. Move this strings into <string-array /> DONE
+
+   //[Comment] Hardcode. Move this strings into <string-array /> DONE
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
@@ -56,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(R.string.toolbarTitle);
-//        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.arrow)); [Comment] Don't leave commented code in production version
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
