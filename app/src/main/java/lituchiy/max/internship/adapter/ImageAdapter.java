@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
 import lituchiy.max.internship.R;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
-    private List<String> mImageList;
+    private List<String> imageList;
     private Context mContext;
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -33,7 +33,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     public ImageAdapter(List<String> imageList, Context context) {
         mContext = context;
-        this.mImageList = imageList; // [Comment] mImageList = imageList
+        this.imageList = imageList; // [Comment] mImageList = imageList
     }
 
     @Override
@@ -45,7 +45,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        Picasso.with(mContext).load(mImageList.get(position)).error(R.drawable.marshmallow).into(holder.mImageView);
+        Picasso.with(mContext).load(imageList.get(position)).error(R.drawable.marshmallow).into(holder.mImageView);
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +58,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return mImageList.size();
+        return imageList.size();
     }
 }
