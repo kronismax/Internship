@@ -1,4 +1,4 @@
-package lituchiy.max.internship;
+package lituchiy.max.internship.view;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +15,11 @@ import java.util.Arrays;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import lituchiy.max.internship.R;
 import lituchiy.max.internship.adapter.ImageAdapter;
 
 //[Comment] Wrong toolbar and status bar color
-public class MainActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
 
    //[Comment] Hardcode. Move this strings into <string-array /> DONE
 
