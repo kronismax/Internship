@@ -1,118 +1,179 @@
 package lituchiy.max.internship.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.UUID;
 
-public class Appeal {
+public class Appeal implements Parcelable {
 
-    private final String mId;
-    private RequestType mRequestType;
-    private String mAddress;
-    private String mStatus;
-    private long mCreatedDate;
-    private long mRegisteredDate;
-    private long mSolveToDate;
-    private String mResponsible;
-    private String mDescription;
-    private int mLikes;
+    public static final String APPEALITEM = "appeal";
+
+    private final String id;
+    private AppealType type;
+    private String address;
+    private String status;
+    private long created;
+    private long registered;
+    private long assigned;
+    private String responsible;
+    private String description;
+    private int likes;
 
     public Appeal() {
-        mId = UUID.randomUUID().toString();
+        id = UUID.randomUUID().toString();
     }
 
-    public Appeal(RequestType requestType, String address, String status, long createdDate,
-                  long registeredDate, long solveToDate, String responsible,
+    public Appeal(AppealType type, String address, String status, long created,
+                  long registered, long assigned, String responsible,
                   String description, int likes) {
         this();
-        mRequestType = requestType;
-        mAddress = address;
-        mStatus = status;
-        mCreatedDate = createdDate;
-        mRegisteredDate = registeredDate;
-        mSolveToDate = solveToDate;
-        mResponsible = responsible;
-        mDescription = description;
-        mLikes = likes;
+        this.type = type;
+        this.address = address;
+        this.status = status;
+        this.created = created;
+        this.registered = registered;
+        this.assigned = assigned;
+        this.responsible = responsible;
+        this.description = description;
+        this.likes = likes;
     }
+
+    protected Appeal(Parcel in) {
+        id = in.readString();
+        type = AppealType.fromInt(in.readInt());
+        address = in.readString();
+        status = in.readString();
+        created = in.readLong();
+        registered = in.readLong();
+        assigned = in.readLong();
+        responsible = in.readString();
+        description = in.readString();
+        likes = in.readInt();
+    }
+
+    public static final Creator<Appeal> CREATOR = new Creator<Appeal>() {
+        @Override
+        public Appeal createFromParcel(Parcel in) {
+            return new Appeal(in);
+        }
+
+        @Override
+        public Appeal[] newArray(int size) {
+            return new Appeal[size];
+        }
+    };
 
     public String getId() {
-        return mId;
+        return id;
     }
 
-    public RequestType getRequestType() {
-        return mRequestType;
+    public AppealType getType() {
+        return type;
     }
 
-    public void setRequestType(RequestType requestType) {
-        mRequestType = requestType;
+    public void setType(AppealType AppealType) {
+        type = AppealType;
     }
 
     public String getAddress() {
-        return mAddress;
+        return address;
     }
 
     public void setAddress(String address) {
-        mAddress = address;
+        this.address = address;
     }
 
-    public long getCreatedDate() {
-        return mCreatedDate;
+    public long getCreated() {
+        return created;
     }
 
-    public void setCreatedDate(long createdDate) {
-        mCreatedDate = createdDate;
+    public void setCreated(long created) {
+        this.created = created;
     }
 
-    public long getSolveToDate() {
-        return mSolveToDate;
+    public long getAssigned() {
+        return assigned;
     }
 
-    public void setSolveToDate(long solveToDate) {
-        mSolveToDate = solveToDate;
+    public void setAssigned(long assigned) {
+        assigned = assigned;
     }
 
     public int getLikes() {
-        return mLikes;
+        return likes;
     }
 
     public void setLikes(int likes) {
-        mLikes = likes;
+        this.likes = likes;
     }
 
-    public long getRegisteredDate() {
-        return mRegisteredDate;
+    public long getRegistered() {
+        return registered;
     }
 
-    public void setRegisteredDate(long registeredDate) {
-        mRegisteredDate = registeredDate;
+    public void setRegistered(long registered) {
+        this.registered = registered;
     }
 
     public String getResponsible() {
-        return mResponsible;
+        return responsible;
     }
 
     public void setResponsible(String responsible) {
-        mResponsible = responsible;
+        this.responsible = responsible;
     }
 
     public String getDescription() {
-        return mDescription;
+        return description;
     }
 
     public void setDescription(String description) {
-        mDescription = description;
+        this.description = description;
     }
 
     public String getStatus() {
-        return mStatus;
+        return status;
     }
 
     public void setStatus(String status) {
-        mStatus = status;
+        this.status = status;
     }
 
-    public enum RequestType {
-        UTILITY_SECTOR,
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeInt(this.type.ordinal());
+        dest.writeString(this.address);
+        dest.writeString(this.status);
+        dest.writeLong(this.created);
+        dest.writeLong(this.registered);
+        dest.writeLong(this.assigned);
+        dest.writeString(this.responsible);
+        dest.writeString(this.description);
+        dest.writeInt(this.likes);
+    }
+
+    public enum AppealType {
+        UTILITY,
         BUILDING,
-        OTHER
+        OTHER;
+
+        public static AppealType fromInt(int i) {
+            switch (i) {
+                case 0:
+                    return AppealType.UTILITY;
+                case 1:
+                    return AppealType.BUILDING;
+                case 2:
+                    return AppealType.OTHER;
+            }
+            return AppealType.OTHER;
+        }
     }
 }

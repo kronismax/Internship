@@ -17,16 +17,29 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lituchiy.max.internship.R;
 import lituchiy.max.internship.adapter.ImageAdapter;
+import lituchiy.max.internship.data.Appeal;
+import lituchiy.max.internship.utils.Utils;
 
 //[Comment] Wrong toolbar and status bar color
 public class DetailActivity extends AppCompatActivity {
 
-   //[Comment] Hardcode. Move this strings into <string-array /> DONE
+    //[Comment] Hardcode. Move this strings into <string-array /> DONE
 
     @Bind(R.id.toolbar)
     Toolbar mToolbar;
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView; //[Comment] Wrong formatter DONE
+    @Bind(R.id.titleTv)
+    TextView titleTv;
+    @Bind(R.id.createdDateTv)
+    TextView createdTv;
+    @Bind(R.id.registeredDateTv)
+    TextView registeredTv;
+    @Bind(R.id.assignedDateTv)
+    TextView assignedTv;
+    @Bind(R.id.responsibleNameTv)
+    TextView responsibleTv;
+
 
     @OnClick({R.id.createdTv,
             R.id.createdDateTv,
@@ -52,8 +65,12 @@ public class DetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle(R.string.toolbarTitle);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(R.string.toolbarTitle);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+        Appeal appeal = getAppeal();
+        setDataToView(appeal);
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +86,33 @@ public class DetailActivity extends AppCompatActivity {
 
         ImageAdapter imageAdapter = new ImageAdapter(Arrays.asList(getResources().getStringArray(R.array.image_urls)), this);
         mRecyclerView.setAdapter(imageAdapter);
+    }
+
+    private void setDataToView(Appeal appeal) {
+        Appeal.AppealType type = appeal.getType();
+        String typeString = getString(R.string.other);
+        switch (type) {
+            case BUILDING:
+                typeString = getString(R.string.type_building);
+                break;
+            case UTILITY:
+                typeString = getString(R.string.utilities);
+                break;
+        }
+        titleTv.setText(typeString);
+        createdTv.setText(Utils.millisecondsToString(this, appeal.getCreated()));
+        registeredTv.setText(Utils.millisecondsToString(this, appeal.getRegistered()));
+        assignedTv.setText(Utils.millisecondsToString(this, appeal.getAssigned()));
+        responsibleTv.setText(appeal.getResponsible());
+
+    }
+
+    private Appeal getAppeal() {
+        Appeal appeal = null;
+        if (getIntent().hasExtra(Appeal.APPEALITEM)) {
+            appeal = getIntent().getParcelableExtra(Appeal.APPEALITEM);
+        }
+        return appeal;
     }
 
     @Override

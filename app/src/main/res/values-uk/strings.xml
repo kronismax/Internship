@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Стажування</string>
     <string name="utilities">Комунальне господарство</string>
-    <string name="inWork">В роботі</string>
+    <string name="status">В роботі</string>
     <string name="description_text">
         Слова основного тексту були написані на стіні радянської вязниці кровю Осипа Мащака.
         УКРАЇНО, Свята Мати Героїв, зійди до серця мого, прилинь бурею вітру кавказького, шумом карпатських ручаїв, боїв славного Завойовника Батька Хмеля, тріумфом і гуком гармат Революції, радісним гомоном Софійських Дзвонів.
@@ -10,7 +10,7 @@
 Спали вогнем життєтворчим всю кволість у серці моєму. Страху нехай не знаю я, не знаю, що таке вагання. Скріпи мій дух, загартуй волю, в серці замешкай моєму! У тюрмах і тяжких хвилинах підпільного життя рости мене до ясних чинів. В чинах тих хай знайду я смерть солодку, смерть в муках за Тебе. І розплинуся в Тобі я, і вічно житиму в Тобі, ВІДВІЧНА УКРАЇНО, МОГУТНЯ і СОБОРНА!
     </string>
     <string name="toolbarTitle">CE-1257218</string>
-    <string name="created_text">Створео</string>
+    <string name="created_text">Створено</string>
     <string name="registered_text">Зареєстровано</string>
     <string name="assigned_text">Вирішити до</string>
     <string name="responsible_text">Відподівальний</string>
@@ -18,5 +18,20 @@
     <string name="created_date">25 лютого 2016</string>
     <string name="registered_date">26 лютого 2016</string>
     <string name="assigned_date">29 лютого 2016</string>
+
+    <string name="drawer_title">@string/app_name</string>
+    <string name="drawer_item_all">Всі звернення</string>
+    <string name="drawer_item_map">Звернення на карті</string>
+    <string name="drawer_item_login">Увійти в аккаунт</string>
+    <string name="drawer_footer_links">Зроблено з любов’ю\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> та <a href="https://yalantis.com/">Yalantis</a></string>
+    <string name="menu_item_sort">Сортувати</string>
+    <string name="menu_item_sort_all">Всі звернення</string>
+    <string name="type_public">Комунально господартсво</string>
+    <string name="type_building">Будівництво</string>
+    <string name="in_progress">В РОБОТІ</string>
+    <string name="completed">ВИКОНАНО</string>
+    <string name="waiting">ОЧІКУЄ</string>
+    <string name="address">Вул. Вадима Гетьмана, 42</string>
+    <string name="other">Інше</string>
 
 </resources>

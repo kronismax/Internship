@@ -40,4 +40,32 @@
         <item name="colorPrimaryDark">@color/white</item>
         <item name="colorAccent">@color/white</item>
     </style>
+
+    <style name="MyCustomTabLayout" parent="Base.Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabGravity">fill</item>
+    </style>
+
+    <style name="LikeTextView">
+        <item name="android:drawableLeft">@drawable/ic_like</item>
+        <item name="android:drawablePadding">@dimen/like_drawable_padding</item>
+        <item name="android:drawableStart">@drawable/ic_like</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/colorLike</item>
+        <item name="android:textSize">@dimen/like_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="AppealTitleTextView">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textAppearance">?attr/textAppearanceListItem</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+    </style>
+
+    <style name="AppealDateTextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingRight">@dimen/view_margin</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
 </resources>

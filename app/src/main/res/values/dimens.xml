@@ -7,5 +7,28 @@
     <dimen name="text_padding">3dp</dimen>
     <dimen name="view_margin">10dp</dimen>
     <dimen name="status_text_view_vertical_padding">5dp</dimen>
-    <dimen name="status_text_view_horizonal_padding">12dp</dimen>
+    <dimen name="status_text_view_horizontal_padding">12dp</dimen>
+    <dimen name="padding_default">16dp</dimen>
+    <dimen name="fab_margin">24dp</dimen>
+
+    <dimen name="drawer_header_height">100dp</dimen>
+    <dimen name="drawer_view_width">304dp</dimen>
+    <dimen name="drawer_header_text_size">24sp</dimen>
+    <dimen name="drawer_header_text_padding">24dp</dimen>
+
+    <!-- TabLayout -->
+    <dimen name="tablayout_height">48dp</dimen>
+    <dimen name="tablayout_margin">10dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <!--CardView-->
+    <dimen name="card_corner_radius">8dp</dimen>
+    <dimen name="appeal_list_item_height">126dp</dimen>
+    <dimen name="appeal_content_margin">16dp</dimen>
+    <dimen name="appeal_icon_width">80dp</dimen>
+    <dimen name="appeal_icon_height">40dp</dimen>
+    <dimen name="appeal_address_vertical_margin">6dp</dimen>
+    <dimen name="divider_size">1dp</dimen>
+    <dimen name="like_drawable_padding">8dp</dimen>
+    <dimen name="like_text_size">16sp</dimen>
 </resources>

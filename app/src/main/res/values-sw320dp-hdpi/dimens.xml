@@ -6,4 +6,5 @@
     <dimen name="text_size">14dp</dimen>
     <dimen name="text_padding">2dp</dimen>
     <dimen name="view_margin">10dp</dimen>
+    <dimen name="toolbar_elevation">4dp</dimen>
 </resources>

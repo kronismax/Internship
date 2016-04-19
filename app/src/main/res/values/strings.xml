@@ -1,18 +1,34 @@
 <resources>
-    <string name="app_name">Internship</string>
+    <string name="app_name">e-contact</string>
     <string name="utilities">Public utilities</string>
-    <string name="inWork">In progress</string>
+    <string name="status">In progress</string>
     <string name="description_text">
         When viewed in an inertial reference frame, an object either remains at rest or continues to move at a constant velocity, unless acted upon by a force.
     </string>
     <string name="toolbarTitle">CE-1257218</string>
     <string name="created_text">Created</string>
-    <string name="registered_text">Registrated</string>
+    <string name="registered_text">Registered</string>
     <string name="assigned_text">Assigned</string>
-    <string name="responsible_text">Resposible</string>
-    <string name="responsible_name">Denipropetrovsk MVK</string>
+    <string name="responsible_text">Responsible</string>
+    <string name="responsible_name">Dnipropetrovsk MVK</string>
     <string name="created_date">25 december 2016</string>
     <string name="registered_date">26 december 2016</string>
     <string name="assigned_date">29 december 2016</string>
+
+    <string name="drawer_title">@string/app_name</string>
+    <string name="drawer_item_all">All appeals</string>
+    <string name="drawer_item_map">Appeals on a map</string>
+    <string name="drawer_item_login">Login</string>
+    <string name="drawer_footer_links">Made with love\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> and <a href="https://yalantis.com/">Yalantis</a></string>
+    <string name="menu_item_sort">Sort</string>
+    <string name="menu_item_sort_all">All appeals</string>
+    <string name="type_public">Public utilities</string>
+    <string name="type_building">Building</string>
+    <string name="in_progress">In progress</string>
+    <string name="completed">Completed</string>
+    <string name="waiting">Waiting</string>
+    <string name="address">st. Vadima Getmana, 42</string>
+    <string name="other">Other</string>
+    <string name="dateFormat">dd MMMM yyyy</string>
 
 </resources>

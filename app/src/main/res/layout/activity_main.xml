@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="lituchiy.max.internship.MainActivity">
+    tools:context=".view.DetailActivity">
 
     <include layout="@layout/toolbar" />
 
@@ -42,10 +42,10 @@
                     android:layout_below="@+id/titleTv"
                     android:background="@drawable/oval"
                     android:paddingBottom="@dimen/status_text_view_vertical_padding"
-                    android:paddingLeft="@dimen/status_text_view_horizonal_padding"
-                    android:paddingRight="@dimen/status_text_view_horizonal_padding"
+                    android:paddingLeft="@dimen/status_text_view_horizontal_padding"
+                    android:paddingRight="@dimen/status_text_view_horizontal_padding"
                     android:paddingTop="@dimen/status_text_view_vertical_padding"
-                    android:text="@string/inWork"
+                    android:text="@string/status"
                     android:textColor="@color/white" />
 
                 <!-- [Comment] Padding hardcode, color hardcode DONE-->

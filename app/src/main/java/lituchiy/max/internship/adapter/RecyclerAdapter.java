@@ -1,98 +1,107 @@
-/*
-* Copyright (C) 2014 The Android Open Source Project
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*      http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
-
 package lituchiy.max.internship.adapter;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import lituchiy.max.internship.R;
+import lituchiy.max.internship.data.Appeal;
+import lituchiy.max.internship.utils.Utils;
+import lituchiy.max.internship.view.DetailActivity;
 
-/**
- * Provide views to RecyclerView with data from mDataSet.
- */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
-    private static final String TAG = "RecyclerAdapter";
 
-    private String[] mDataSet;
+    private Context mContext;
+    private List<Appeal> mAppeals;
 
-    // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
-    /**
-     * Provide a reference to the type of views that you are using (custom ViewHolder)
-     */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textView;
-
-        public ViewHolder(View v) {
-            super(v);
-            // Define click listener for the ViewHolder's View.
-            v.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.d(TAG, "onClick: " + getPosition());
-                }
-            });
-            textView = (TextView) v.findViewById(R.id.textView);
-        }
-
-        public TextView getTextView() {
-            return textView;
-        }
-    }
-    // END_INCLUDE(recyclerViewSampleViewHolder)
-
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
-     */
-    public RecyclerAdapter(String[] dataSet) {
-        mDataSet = dataSet;
+    public RecyclerAdapter(Context context) {
+        mContext = context;
+        mAppeals = new ArrayList<>();
     }
 
-    // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
-    // Create new views (invoked by the layout manager)
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        // Create a new view.
-        View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.text_row_item, viewGroup, false);
-
-        return new ViewHolder(v);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        return new ViewHolder(LayoutInflater.from(
+                parent.getContext()).inflate(R.layout.list_item, parent, false));
     }
-    // END_INCLUDE(recyclerViewOnCreateViewHolder)
 
-    // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
-    // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(final RecyclerAdapter.ViewHolder holder, int position) {
+        final Appeal appeal = mAppeals.get(position);
 
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-        viewHolder.getTextView().setText(mDataSet[position]);
+        holder.mAppealTypeImageView.setImageResource(R.drawable.ic_doc);
+
+        switch (appeal.getType()) {
+            case BUILDING:
+                holder.mAppealTypeTextView.setText(R.string.type_building);
+                break;
+            case UTILITY:
+                holder.mAppealTypeTextView.setText(R.string.utilities);
+                break;
+            case OTHER:
+                holder.mAppealTypeTextView.setText(R.string.other);
+                break;
+            default:
+                break;
+        }
+        holder.mAppealAddressTextView.setText(appeal.getAddress());
+        holder.mAppealBeginDateDiffTextView.setText(Utils.getRelativeTimeSpanString(appeal.getRegistered()));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
+        holder.mAppealEndDateTextView.setText(dateFormat.format(new Date(appeal.getRegistered())));
+        holder.mLikesTextView.setText(String.valueOf(appeal.getLikes()));
+        holder.mAppealCardView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DetailActivity.class);
+                intent.putExtra(Appeal.APPEALITEM, appeal);
+                mContext.startActivity(intent);
+            }
+        });
     }
-    // END_INCLUDE(recyclerViewOnBindViewHolder)
 
-    // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mAppeals.size();
+    }
+
+    public void setAppeals(List<Appeal> appeals) {
+        mAppeals = appeals;
+        notifyDataSetChanged();
+    }
+
+    class ViewHolder extends RecyclerView.ViewHolder {
+
+        @Bind(R.id.appeal_type_icon_image_view)
+        ImageView mAppealTypeImageView;
+        @Bind(R.id.appeal_type_text_view)
+        TextView mAppealTypeTextView;
+        @Bind(R.id.appeal_address_text_view)
+        TextView mAppealAddressTextView;
+        @Bind(R.id.appeal_registered_date)
+        TextView mAppealEndDateTextView;
+        @Bind(R.id.appeal_days_left_text_view)
+        TextView mAppealBeginDateDiffTextView;
+        @Bind(R.id.likes_text_view)
+        TextView mLikesTextView;
+        @Bind(R.id.appeal_item_card_view)
+        CardView mAppealCardView;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
     }
 }
