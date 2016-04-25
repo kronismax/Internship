@@ -29,7 +29,7 @@ public class ListAdapter extends BaseAdapter {
     private List<Appeal> mAppeals;
 
     public ListAdapter(Context mContext) {
-        this.mContext = mContext;
+        this.mContext = mContext; //[Comment] Why do use "this" ? You know what does it mean in java?
         this.mAppeals = new ArrayList<>();
     }
 
@@ -50,7 +50,7 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
+        View view = convertView; //[Comment] You don't need view
         ViewHolder holder;
 
         if (convertView == null) {

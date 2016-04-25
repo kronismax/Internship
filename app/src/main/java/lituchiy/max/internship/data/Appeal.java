@@ -20,7 +20,7 @@ public class Appeal implements Parcelable {
     private String description;
     private int likes;
 
-    public Appeal() {
+    public Appeal() { //[Comment] Can be private
         id = UUID.randomUUID().toString();
     }
 
@@ -39,7 +39,7 @@ public class Appeal implements Parcelable {
         this.likes = likes;
     }
 
-    protected Appeal(Parcel in) {
+    protected Appeal(Parcel in) { //[Comment] Can be private
         id = in.readString();
         type = AppealType.fromInt(in.readInt());
         address = in.readString();
@@ -64,7 +64,7 @@ public class Appeal implements Parcelable {
         }
     };
 
-    public String getId() {
+    public String getId() { //[Comment] UNUSED
         return id;
     }
 
@@ -72,8 +72,8 @@ public class Appeal implements Parcelable {
         return type;
     }
 
-    public void setType(AppealType AppealType) {
-        type = AppealType;
+    public void setType(AppealType AppealType) { //[Comment] NEVER use shuch object names
+        type = AppealType; //[Comment] Unused setters
     }
 
     public String getAddress() {
@@ -97,7 +97,7 @@ public class Appeal implements Parcelable {
     }
 
     public void setAssigned(long assigned) {
-        assigned = assigned;
+        assigned = assigned; //[Comment] What is this?
     }
 
     public int getLikes() {
