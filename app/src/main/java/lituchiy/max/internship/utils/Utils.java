@@ -29,7 +29,7 @@ public class Utils {
         return df.format(new Date(milliseconds));
     }
 
-    public static List<Appeal> getAppealsList(Context context) {
+    public static List<Appeal> getAppealsList(Context context) { //[Comment] Where have you find this code?
         List<Appeal> appeals = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
