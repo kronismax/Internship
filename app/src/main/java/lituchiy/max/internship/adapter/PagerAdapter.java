@@ -24,8 +24,8 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         switch (position)
-        {
-            case 0:
+        { //[Comment] Wrong formatting
+            case 0: //[Comment] Hardcode
             case 1:
                 return RecyclerFragment.newInstance();
             case 2:
@@ -42,7 +42,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0:
+            case 0: //[Comment] Hardcode
                 return mContext.getString(R.string.in_progress);
             case 1:
                 return mContext.getString(R.string.completed);
