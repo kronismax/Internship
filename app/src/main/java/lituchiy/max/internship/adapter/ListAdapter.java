@@ -28,9 +28,9 @@ public class ListAdapter extends BaseAdapter {
     private Context mContext;
     private List<Appeal> mAppeals;
 
-    public ListAdapter(Context mContext) {
-        this.mContext = mContext; //[Comment] Why do use "this" ? You know what does it mean in java?
-        this.mAppeals = new ArrayList<>();
+    public ListAdapter(Context context) {
+        mContext = context; //[Comment] Why do use "this" ? You know what does it mean in java?
+        mAppeals = new ArrayList<>();
     }
 
     @Override
@@ -49,17 +49,16 @@ public class ListAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView; //[Comment] You don't need view
+    public View getView(int position, View view, ViewGroup parent) {
+//        View view = view; //[Comment] You don't need view
         ViewHolder holder;
-
-        if (convertView == null) {
+        if(view != null) {
+            holder  = (ViewHolder) view.getTag();
+        } else {
             view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_item, parent, false);
+                   .inflate(R.layout.list_item, parent, false);
             holder = new ViewHolder(view);
             view.setTag(holder);
-        } else {
-            holder = (ViewHolder) view.getTag();
         }
 
         final Appeal appeal = mAppeals.get(position);

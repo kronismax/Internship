@@ -20,7 +20,7 @@ public class Appeal implements Parcelable {
     private String description;
     private int likes;
 
-    public Appeal() { //[Comment] Can be private
+    private Appeal() { //[Comment] Can be private
         id = UUID.randomUUID().toString();
     }
 
@@ -39,7 +39,7 @@ public class Appeal implements Parcelable {
         this.likes = likes;
     }
 
-    protected Appeal(Parcel in) { //[Comment] Can be private
+    private Appeal(Parcel in) { //[Comment] Can be private
         id = in.readString();
         type = AppealType.fromInt(in.readInt());
         address = in.readString();
@@ -64,80 +64,32 @@ public class Appeal implements Parcelable {
         }
     };
 
-    public String getId() { //[Comment] UNUSED
-        return id;
-    }
-
     public AppealType getType() {
         return type;
-    }
-
-    public void setType(AppealType AppealType) { //[Comment] NEVER use shuch object names
-        type = AppealType; //[Comment] Unused setters
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public long getCreated() {
         return created;
-    }
-
-    public void setCreated(long created) {
-        this.created = created;
     }
 
     public long getAssigned() {
         return assigned;
     }
 
-    public void setAssigned(long assigned) {
-        assigned = assigned; //[Comment] What is this?
-    }
-
     public int getLikes() {
         return likes;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
     }
 
     public long getRegistered() {
         return registered;
     }
 
-    public void setRegistered(long registered) {
-        this.registered = registered;
-    }
-
     public String getResponsible() {
         return responsible;
-    }
-
-    public void setResponsible(String responsible) {
-        this.responsible = responsible;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     @Override

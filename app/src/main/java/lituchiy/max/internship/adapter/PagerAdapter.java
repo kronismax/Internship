@@ -12,6 +12,9 @@ import lituchiy.max.internship.view.RecyclerFragment;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     public static final int TAB_COUNT = 3;
+    public static final int FRAGMENT_PROGRESS = 0;
+    public static final int FRAGMENT_COMPLETED = 1;
+    public static final int FRAGMENT_WAITING = 2;
 
     private Context mContext;
 
@@ -23,12 +26,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        switch (position)
-        { //[Comment] Wrong formatting
-            case 0: //[Comment] Hardcode
-            case 1:
+        switch (position) { //[Comment] Wrong formatting
+            case FRAGMENT_PROGRESS: //[Comment] Hardcode
+            case FRAGMENT_COMPLETED:
                 return RecyclerFragment.newInstance();
-            case 2:
+            case FRAGMENT_WAITING:
                 return ListFragment.newInstance();
         }
         return null;
@@ -42,11 +44,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case 0: //[Comment] Hardcode
+            case FRAGMENT_PROGRESS: //[Comment] Hardcode
                 return mContext.getString(R.string.in_progress);
-            case 1:
+            case FRAGMENT_COMPLETED:
                 return mContext.getString(R.string.completed);
-            case 2:
+            case FRAGMENT_WAITING:
                 return mContext.getString(R.string.waiting);
         }
         return super.getPageTitle(position);

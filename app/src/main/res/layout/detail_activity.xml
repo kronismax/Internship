@@ -62,6 +62,7 @@
                     android:id="@+id/createdTv"
                     style="@style/TaskNames"
                     android:layout_width="wrap_content"
+                    android:onClick="showToast"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
