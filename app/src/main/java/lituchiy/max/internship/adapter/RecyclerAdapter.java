@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 import lituchiy.max.internship.R;
 import lituchiy.max.internship.data.Appeal;
 import lituchiy.max.internship.utils.Utils;
-import lituchiy.max.internship.view.DetailActivity;
+import lituchiy.max.internship.ui.detail.DetailActivity;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
 

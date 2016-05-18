@@ -1,4 +1,4 @@
-package lituchiy.max.internship.data;
+package lituchiy.max.internship.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;

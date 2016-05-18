@@ -1,4 +1,4 @@
-package lituchiy.max.internship.view;
+package lituchiy.max.internship.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
