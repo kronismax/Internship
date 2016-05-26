@@ -1,65 +1,64 @@
-
 package lituchiy.max.internship.data.model;
 
+public class Files {
 
-public class File {
-
-    private Integer id;
+    private int id;
     private String name;
     private String filename;
 
     /**
-     * 
+     *
      * @return
-     *     The id
+     * The id
      */
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
     /**
-     * 
+     *
      * @param id
-     *     The id
+     * The id
      */
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     /**
-     * 
+     *
      * @return
-     *     The name
+     * The name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * 
+     *
      * @param name
-     *     The name
+     * The name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * 
+     *
      * @return
-     *     The filename
+     * The filename
      */
     public String getFilename() {
         return filename;
     }
 
     /**
-     * 
+     *
      * @param filename
-     *     The filename
+     * The filename
      */
     public void setFilename(String filename) {
         this.filename = filename;
     }
+
 
 }

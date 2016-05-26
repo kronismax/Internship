@@ -1,131 +1,137 @@
+
 package lituchiy.max.internship.data.model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Appeal implements Parcelable {
+public class Appeal {
+    // TODO: 26.05.16 Rename this class
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("user")
+    @Expose
+    private User user;
+    @SerializedName("category")
+    @Expose
+    private Category category;
+    @SerializedName("type")
+    @Expose
+    private Type type;
+    @SerializedName("title")
+    @Expose
+    private String title;
+    @SerializedName("body")
+    @Expose
+    private String body;
+    @SerializedName("created_date")
+    private long createdDate;
+    @SerializedName("start_date")
+    @Expose
+    private long startDate;
+    @SerializedName("completed_date")
+    @Expose
+    private long completedDate;
+    @SerializedName("state")
+    @Expose
+    private State state;
+    @SerializedName("ticket_id")
+    @Expose
+    private String ticketId;
+    @SerializedName("files")
+    @Expose
+    private List<Files> files = new ArrayList<>();
+    @SerializedName("performers")
+    @Expose
+    private List<Performer> performers = new ArrayList<>();
+    @SerializedName("deadline")
+    @Expose
+    private long deadline;
+    @SerializedName("likes_counter")
+    @Expose
+    private Integer likesCounter;
 
-    public static final String APPEALITEM = "appeal";
-
-    private final String id;
-    private AppealType type;
-    private String address;
-    private String status;
-    private long created;
-    private long registered;
-    private long assigned;
-    private String responsible;
-    private String description;
-    private int likes;
-
-    private Appeal() { //[Comment] Can be private
-        id = UUID.randomUUID().toString();
+    public int getId() {
+        return id;
     }
 
-    public Appeal(AppealType type, String address, String status, long created,
-                  long registered, long assigned, String responsible,
-                  String description, int likes) {
-        this();
-        this.type = type;
-        this.address = address;
-        this.status = status;
-        this.created = created;
-        this.registered = registered;
-        this.assigned = assigned;
-        this.responsible = responsible;
-        this.description = description;
-        this.likes = likes;
+    public User getUser() {
+        return user;
     }
 
-    private Appeal(Parcel in) { //[Comment] Can be private
-        id = in.readString();
-        type = AppealType.fromInt(in.readInt());
-        address = in.readString();
-        status = in.readString();
-        created = in.readLong();
-        registered = in.readLong();
-        assigned = in.readLong();
-        responsible = in.readString();
-        description = in.readString();
-        likes = in.readInt();
+    public Category getCategory() {
+        return category;
     }
 
-    public static final Creator<Appeal> CREATOR = new Creator<Appeal>() {
-        @Override
-        public Appeal createFromParcel(Parcel in) {
-            return new Appeal(in);
-        }
-
-        @Override
-        public Appeal[] newArray(int size) {
-            return new Appeal[size];
-        }
-    };
-
-    public AppealType getType() {
+    public Type getType() {
         return type;
     }
 
-    public String getAddress() {
-        return address;
+    public String getTitle() {
+        return title;
     }
 
-    public long getCreated() {
-        return created;
+    public String getBody() {
+        return body;
     }
 
-    public long getAssigned() {
-        return assigned;
+    public long getCreatedDate() {
+        return createdDate;
     }
 
-    public int getLikes() {
-        return likes;
+    public long getStartDate() {
+        return startDate;
     }
 
-    public long getRegistered() {
-        return registered;
+    public long getCompletedDate() {
+        return completedDate;
     }
 
-    public String getResponsible() {
-        return responsible;
+    public State getState() {
+        return state;
+    }
+
+    public String getTicketId() {
+        return ticketId;
+    }
+
+    public List<Files> getFiles() {
+        return files;
+    }
+
+    public List<Performer> getPerformers() {
+        return performers;
+    }
+
+    public long getDeadline() {
+        return deadline;
+    }
+
+    public Integer getLikesCounter() {
+        return likesCounter;
     }
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.id);
-        dest.writeInt(this.type.ordinal());
-        dest.writeString(this.address);
-        dest.writeString(this.status);
-        dest.writeLong(this.created);
-        dest.writeLong(this.registered);
-        dest.writeLong(this.assigned);
-        dest.writeString(this.responsible);
-        dest.writeString(this.description);
-        dest.writeInt(this.likes);
-    }
-
-    public enum AppealType {
-        UTILITY,
-        BUILDING,
-        OTHER;
-
-        public static AppealType fromInt(int i) {
-            switch (i) {
-                case 0:
-                    return AppealType.UTILITY;
-                case 1:
-                    return AppealType.BUILDING;
-                case 2:
-                    return AppealType.OTHER;
-            }
-            return AppealType.OTHER;
-        }
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Appeal{");
+        sb.append("id=").append(id);
+        sb.append(", user=").append(user);
+        sb.append(", category=").append(category);
+        sb.append(", type=").append(type);
+        sb.append(", title='").append(title).append('\'');
+        sb.append(", body='").append(body).append('\'');
+        sb.append(", createdDate=").append(createdDate);
+        sb.append(", startDate=").append(startDate);
+        sb.append(", state=").append(state);
+        sb.append(", ticketId='").append(ticketId).append('\'');
+        sb.append(", files=").append(files);
+        sb.append(", performers=").append(performers);
+        sb.append(", deadline=").append(deadline);
+        sb.append(", likesCounter=").append(likesCounter);
+        sb.append('}');
+        return sb.toString();
     }
 }

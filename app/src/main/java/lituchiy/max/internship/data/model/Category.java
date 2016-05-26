@@ -1,7 +1,6 @@
 
 package lituchiy.max.internship.data.model;
 
-
 public class Category {
 
     private Integer id;

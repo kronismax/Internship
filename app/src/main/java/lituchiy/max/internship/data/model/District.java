@@ -1,7 +1,6 @@
 
 package lituchiy.max.internship.data.model;
 
-
 public class District {
 
     private Integer id;

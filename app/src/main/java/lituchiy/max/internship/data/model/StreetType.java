@@ -1,7 +1,6 @@
 
 package lituchiy.max.internship.data.model;
 
-
 public class StreetType {
 
     private Integer id;
