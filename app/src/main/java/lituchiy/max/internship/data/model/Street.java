@@ -1,11 +1,22 @@
 
 package lituchiy.max.internship.data.model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Street {
 
-    private Integer id;
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("ru_name")
+    @Expose
     private String ruName;
+    @SerializedName("street_type")
+    @Expose
     private StreetType streetType;
 
     /**

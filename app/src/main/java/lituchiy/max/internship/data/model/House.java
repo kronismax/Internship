@@ -2,9 +2,16 @@
 package lituchiy.max.internship.data.model;
 
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class House {
 
-    private Integer id;
+    @SerializedName("id")
+    @Expose
+    private int id;
+    @SerializedName("name")
+    @Expose
     private String name;
 
     /**

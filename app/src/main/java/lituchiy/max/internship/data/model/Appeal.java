@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Appeal {
-    // TODO: 26.05.16 Rename this class
+
     @SerializedName("id")
     @Expose
     private int id;
@@ -114,24 +114,4 @@ public class Appeal {
         return likesCounter;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Appeal{");
-        sb.append("id=").append(id);
-        sb.append(", user=").append(user);
-        sb.append(", category=").append(category);
-        sb.append(", type=").append(type);
-        sb.append(", title='").append(title).append('\'');
-        sb.append(", body='").append(body).append('\'');
-        sb.append(", createdDate=").append(createdDate);
-        sb.append(", startDate=").append(startDate);
-        sb.append(", state=").append(state);
-        sb.append(", ticketId='").append(ticketId).append('\'');
-        sb.append(", files=").append(files);
-        sb.append(", performers=").append(performers);
-        sb.append(", deadline=").append(deadline);
-        sb.append(", likesCounter=").append(likesCounter);
-        sb.append('}');
-        return sb.toString();
-    }
 }

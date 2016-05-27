@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <group
-        android:id="@+id/menu_actions"
-        android:checkableBehavior="single">
+    <group android:checkableBehavior="single">
         <item
-            android:id="@+id/drawer_all"
             android:icon="@drawable/ic_issues"
             android:title="@string/drawer_item_all" />
         <item
@@ -13,9 +10,10 @@
             android:title="@string/drawer_item_map" />
     </group>
 
-    <group
-        android:id="@+id/menu_login"
-        android:checkableBehavior="none">
-        <item android:title="@string/drawer_item_login" />
+    <group android:checkableBehavior="none">
+        <item android:title="@string/drawer_item_login"
+            android:id="@+id/drawer_login"/>
+        <item android:title="@string/drawer_item_profile"
+            android:id="@+id/drawer_profile"/>
     </group>
 </menu>

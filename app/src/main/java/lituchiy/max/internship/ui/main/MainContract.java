@@ -1,12 +1,20 @@
 package lituchiy.max.internship.ui.main;
 
 
-import java.util.List;
-
-import lituchiy.max.internship.data.model.Appeal;
-
 public interface MainContract {
 
-    void refreshAppealList(List<Appeal> mAppealList);
+    interface View {
+
+        void showProgressBar(int status);
+
+        void showAppeal();
+
+    }
+
+    interface UserActionListener {
+
+        void loadAppealList(String query, int page, int offset);
+
+    }
 
 }

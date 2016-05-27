@@ -15,6 +15,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import lituchiy.max.internship.R;
+import lituchiy.max.internship.utils.Constants;
 
 public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> {
     private List<String> imageList;
@@ -45,7 +46,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
 
-        Picasso.with(mContext).load(imageList.get(position)).error(R.drawable.marshmallow).into(holder.mImageView);
+        Picasso.with(mContext)
+                .load(Constants.QUERY_IMAGE_URL + imageList.get(position))
+                .error(R.drawable.marshmallow)
+                .resize(Constants.IMAGE_WIDTH, Constants.IMAGE_HEIGHT)
+                .onlyScaleDown()
+                .centerInside()
+                .into(holder.mImageView);
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override

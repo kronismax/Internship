@@ -1,53 +1,71 @@
 package lituchiy.max.internship.utils;
 
 import android.content.Context;
-import android.text.format.DateUtils;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
+import io.realm.RealmList;
 import lituchiy.max.internship.R;
-import lituchiy.max.internship.data.Appeal;
+import lituchiy.max.internship.data.AppealPhotoRealm;
+import lituchiy.max.internship.data.AppealRealm;
+import lituchiy.max.internship.data.model.Appeal;
+import lituchiy.max.internship.data.model.Files;
 
 
 public class Utils {
 
     private static Locale locale = Locale.getDefault();
 
-    public static String getRelativeTimeSpanString(long milliseconds) {
-        Date date = new Date(milliseconds);
-        return DateUtils.getRelativeTimeSpanString(date.getTime()).toString();
-    }
-
     public static String millisecondsToString(Context context, long milliseconds) {
-
         SimpleDateFormat df = new SimpleDateFormat(context.getString(R.string.dateFormat), locale);
-        return df.format(new Date(milliseconds));
+        return df.format(new Date(milliseconds * 1000));
     }
 
-    public static List<Appeal> getAppealsList(Context context) { //[Comment] Where have you find this code?
-        List<Appeal> appeals = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < 10; i++) {
-            int typeIndex = random.nextInt(Appeal.AppealType.values().length);
-            Appeal.AppealType type = Appeal.AppealType.values()[typeIndex];
-            String address = context.getString(R.string.address);
-            String status = context.getString(R.string.status);
-            long created = System.currentTimeMillis() - random.nextInt(10) * 86400000;
-            long registered = created + random.nextInt(10) * 86400000;
-            long assigned = registered + random.nextInt(10) * 86400000;
-            int likes = random.nextInt(100);
-            String responsible = context.getString(R.string.responsible_name);
-            String description = context.getString(R.string.description_text);
+    public static AppealRealm appealToRealmObject(Appeal appeal) {
+        AppealRealm appealRealm = new AppealRealm();
+        appealRealm.setId(appeal.getId());
+        appealRealm.setTitle(appeal.getTitle());
+        appealRealm.setCreatedDate(appeal.getCreatedDate());
+        appealRealm.setRegisteredDate(appeal.getCreatedDate());
+        appealRealm.setAssignedDate(appeal.getStartDate());
+        appealRealm.setCategory(appeal.getCategory().getName());
+        appealRealm.setTitle(appeal.getTitle());
+        appealRealm.setLikes(appeal.getLikesCounter());
+        appealRealm.setDescription(appeal.getBody());
+        appealRealm.setState(appeal.getState().getId());
+        appealRealm.setStateName(appeal.getState().getName());
 
-            appeals.add(new Appeal(type, address, status, created, registered, assigned,
-                    responsible, description, likes));
+        if (appeal.getUser().getAddress() != null && appeal.getUser().getAddress().getStreet() != null) {
+            appealRealm.setAddress(appeal.getUser().getAddress().toString());
         }
-        return appeals;
+
+        if (appeal.getPerformers() != null && appeal.getPerformers().size() > 0) {
+            appealRealm.setResponsible(appeal.getPerformers().get(0).getOrganization());
+        }
+
+        if (appeal.getFiles() != null && appeal.getFiles().size() > 0) {
+            RealmList<AppealPhotoRealm> list = new RealmList<>();
+            for (Files files : appeal.getFiles()) {
+                AppealPhotoRealm photoRealm = new AppealPhotoRealm();
+                photoRealm.setImageUrl(files.getFilename());
+                list.add(photoRealm);
+            }
+            appealRealm.setPhoto(list);
+        }
+        return appealRealm;
+    }
+
+    public static boolean isConnectingToInternet(Context context) {
+        if (context != null) {
+            ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+            return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+        }
+        return false;
     }
 
 }

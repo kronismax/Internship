@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/popup_filter_all"
-        android:title="@string/menu_item_sort_all" />
-    <item
-        android:id="@+id/popup_filter_public"
-        android:title="@string/type_public" />
-    <item
-        android:id="@+id/popup_filter_building"
-        android:title="@string/type_building" />
+    <item android:title="@string/menu_item_sort_all" />
+    <item android:title="@string/type_public" />
+    <item android:title="@string/type_building" />
 </menu>

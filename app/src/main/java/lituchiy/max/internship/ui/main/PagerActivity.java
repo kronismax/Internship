@@ -1,4 +1,4 @@
-package lituchiy.max.internship.view;
+package lituchiy.max.internship.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -41,18 +40,17 @@ import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import io.realm.Realm;
 import lituchiy.max.internship.R;
 import lituchiy.max.internship.adapter.PagerAdapter;
-import lituchiy.max.internship.service.ApiService;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import lituchiy.max.internship.data.RealmController;
+import lituchiy.max.internship.data.AccessTokenRealm;
+import lituchiy.max.internship.data.ProfileRealm;
+import lituchiy.max.internship.ui.profile.ProfileActivity;
+import lituchiy.max.internship.utils.Constants;
 
 public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
 
-    private static final String TAG = "Debug";
     @Bind(R.id.layout_drawer)
     DrawerLayout mDrawerLayout;
     @Bind(R.id.drawer_view_navigation)
@@ -72,7 +70,7 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
     CallbackManager callbackManager;
     LoginManager loginManager;
-    private AccessToken accessToken;
+    private Realm mRealm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +81,9 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         ButterKnife.bind(this);
 
+        mRealm = RealmController.with(this).getRealm();
 
         setToolbar();
-
-//        retrofit();
 
         setPager();
 
@@ -129,6 +126,15 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 } else if (item.getItemId() == R.id.drawer_login) {
                     loginFacebook();
                     item.setChecked(true);
+                } else if (item.getItemId() == R.id.drawer_profile) {
+                    if (Profile.getCurrentProfile() != null) {
+                        startActivity(new Intent(PagerActivity.this, ProfileActivity.class));
+                    } else {
+                        Toast.makeText(PagerActivity.this,
+                                R.string.facebook_login,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                    item.setChecked(true);
                 } else {
                     item.setChecked(true);
                     mDrawerLayout.closeDrawers();
@@ -148,8 +154,6 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Log.d(TAG, "onSuccess: " + loginResult.getAccessToken().getToken());
-                        accessToken = loginResult.getAccessToken();
                         getFacebookProfile();
                     }
 
@@ -161,9 +165,8 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                     public void onError(FacebookException exception) {
                     }
                 });
-
-        Collection<String> permissions = Collections.singletonList("public_profile");
-
+        Collection<String> permissions = Collections.singletonList(
+                Constants.FACEBOOK_PERMISSIONS_LIST);
         loginManager.logInWithReadPermissions(this, permissions);
     }
 
@@ -172,17 +175,27 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
                     @Override
-                    public void onCompleted(
-                            JSONObject object,
-                            GraphResponse response) {
-                        Log.d(TAG, "onCompleted() called with: " + "object = [" + object + "], response = [" + response + "]");
+                    public void onCompleted(JSONObject object, GraphResponse response) {
                         Profile.fetchProfileForCurrentAccessToken();
                         Profile profile = Profile.getCurrentProfile();
-                        Log.d(TAG, "onCompleted() called with: " + "profile = [" + profile.getProfilePictureUri(100, 100));
+
+                        AccessTokenRealm accessTokenRealm = new AccessTokenRealm();
+
+                        accessTokenRealm.setToken(AccessToken.getCurrentAccessToken().getToken());
+                        ProfileRealm profileRealm = new ProfileRealm();
+                        profileRealm.setName(profile.getName());
+                        profileRealm.setLink(profile.getLinkUri().toString());
+                        profileRealm.setProfilePicture(String.valueOf(profile.getProfilePictureUri(
+                                Constants.PROFILE_IMAGE_SIZE, Constants.PROFILE_IMAGE_SIZE)));
+
+                        mRealm.beginTransaction();
+                        mRealm.copyToRealmOrUpdate(accessTokenRealm);
+                        mRealm.copyToRealmOrUpdate(profileRealm);
+                        mRealm.commitTransaction();
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,picture");
+        parameters.putString(Constants.FACEBOOK_QUERY, Constants.FACEBOOK_PERMISSIONS);
         request.setParameters(parameters);
         request.executeAsync();
     }
@@ -202,68 +215,12 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
         if (supportActionBar != null) {
             supportActionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
             supportActionBar.setDisplayHomeAsUpEnabled(true);
-            supportActionBar.setTitle(getString(R.string.drawer_item_all));
+            supportActionBar.setTitle(getString(R.string.app_name));
         }
 
         if (mAppBar != null) {
             ViewCompat.setElevation(mAppBar, 0f);
         }
-    }
-
-    private void retrofit() {
-
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(interceptor).build();
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://dev-contact.yalantis.com/rest/v1/")
-                .client(client)
-                .build();
-
-        ApiService weatherService = retrofit.create(ApiService.class);
-//        Observable<List<AppealNew>> call = weatherService.getAppeal("state=0,9,5,7,8");
-
-//        Call<List<AppealNew>> call = weatherService.getAppeal("");
-//        call.enqueue(new Callback<List<AppealNew>>() {
-//            @Override
-//            public void onResponse(Call<List<AppealNew>> call, Response<List<AppealNew>> response) {
-//                for (AppealNew appeal : response.body()) {
-//                    Log.d(TAG, "onResponse: "+appeal.getTitle());
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<AppealNew>> call, Throwable t) {
-//
-//            }
-//        });
-
-//        call.subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(new Subscriber<List<AppealNew>>() {
-//
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        Log.d(TAG, "onError() called with: " + "e = [" + e + "]");
-//                    }
-//
-//                    @Override
-//                    public void onNext(List<AppealNew> appealNew) {
-//                        for (AppealNew appeal : appealNew) {
-//                            Log.d(TAG, "onResponse: " + appeal.getTitle());
-//                        }
-//                    }
-//
-//                });
     }
 
     @Override
@@ -279,7 +236,8 @@ public class PagerActivity extends AppCompatActivity implements PopupMenu.OnMenu
 
         switch (id) {
             case R.id.menu_action_sort:
-                PopupMenu popupMenu = new PopupMenu(PagerActivity.this, findViewById(R.id.menu_action_sort));
+                PopupMenu popupMenu = new PopupMenu(PagerActivity.this,
+                        findViewById(R.id.menu_action_sort));
                 popupMenu.getMenuInflater().inflate(R.menu.menu_filter_popup, popupMenu.getMenu());
                 popupMenu.setOnMenuItemClickListener(this);
                 popupMenu.show();

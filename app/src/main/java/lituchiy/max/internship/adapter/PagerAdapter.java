@@ -6,15 +6,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import lituchiy.max.internship.R;
-import lituchiy.max.internship.view.ListFragment;
-import lituchiy.max.internship.view.RecyclerFragment;
+import lituchiy.max.internship.ui.main.MainFragment;
+import lituchiy.max.internship.utils.Constants;
 
 public class PagerAdapter extends FragmentPagerAdapter {
 
     public static final int TAB_COUNT = 3;
-    public static final int FRAGMENT_PROGRESS = 0;
-    public static final int FRAGMENT_COMPLETED = 1;
-    public static final int FRAGMENT_WAITING = 2;
+    public static final int FRAGMENT_IN_PROGRESS = 0;
+    public static final int FRAGMENT_DONE = 1;
+    public static final int FRAGMENT_PENDING = 2;
 
     private Context mContext;
 
@@ -27,11 +27,12 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
 
         switch (position) { //[Comment] Wrong formatting
-            case FRAGMENT_PROGRESS: //[Comment] Hardcode
-            case FRAGMENT_COMPLETED:
-                return RecyclerFragment.newInstance();
-            case FRAGMENT_WAITING:
-                return ListFragment.newInstance();
+            case FRAGMENT_IN_PROGRESS: //[Comment] Hardcode
+                return MainFragment.newInstance(Constants.QUERY_IN_PROGRESS, Constants.STATE_IN_PROGRESS);
+            case FRAGMENT_DONE:
+                return MainFragment.newInstance(Constants.QUERY_DONE, Constants.STATE_DONE);
+            case FRAGMENT_PENDING:
+                return MainFragment.newInstance(Constants.QUERY_PENDING, Constants.STATE_PENDING);
         }
         return null;
     }
@@ -44,11 +45,11 @@ public class PagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
-            case FRAGMENT_PROGRESS: //[Comment] Hardcode
+            case FRAGMENT_IN_PROGRESS: //[Comment] Hardcode
                 return mContext.getString(R.string.in_progress);
-            case FRAGMENT_COMPLETED:
+            case FRAGMENT_DONE:
                 return mContext.getString(R.string.completed);
-            case FRAGMENT_WAITING:
+            case FRAGMENT_PENDING:
                 return mContext.getString(R.string.waiting);
         }
         return super.getPageTitle(position);

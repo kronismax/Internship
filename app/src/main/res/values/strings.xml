@@ -1,11 +1,9 @@
 <resources>
-    <string name="app_name">e-contact</string>
+    <string name="app_name">E-contact</string>
     <string name="utilities">Public utilities</string>
-    <string name="status">In progress</string>
     <string name="description_text">
         When viewed in an inertial reference frame, an object either remains at rest or continues to move at a constant velocity, unless acted upon by a force.
     </string>
-    <string name="toolbarTitle">CE-1257218</string>
     <string name="created_text">Created</string>
     <string name="registered_text">Registered</string>
     <string name="assigned_text">Assigned</string>
@@ -19,6 +17,7 @@
     <string name="drawer_item_all">All appeals</string>
     <string name="drawer_item_map">Appeals on a map</string>
     <string name="drawer_item_login">Login</string>
+    <string name="drawer_item_profile">Profile</string>
     <string name="drawer_footer_links">Made with love\n<a href="http://www.itruh.dp.ua/">IT Ruh Dnipro</a> and <a href="https://yalantis.com/">Yalantis</a></string>
     <string name="menu_item_sort">Sort</string>
     <string name="menu_item_sort_all">All appeals</string>
@@ -27,8 +26,12 @@
     <string name="in_progress">In progress</string>
     <string name="completed">Completed</string>
     <string name="waiting">Waiting</string>
-    <string name="address">st. Vadima Getmana, 42</string>
-    <string name="other">Other</string>
     <string name="dateFormat">dd MMMM yyyy</string>
+
+    <string name="facebook_app_id">519888558197341</string>
+
+    <string name="appeal_id">Appeal id: </string>
+    <string name="check_internet">Check your internet connection</string>
+    <string name="facebook_login">You have to login first</string>
 
 </resources>

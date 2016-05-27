@@ -10,14 +10,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import lituchiy.max.internship.R;
 import lituchiy.max.internship.adapter.ImageAdapter;
-import lituchiy.max.internship.data.Appeal;
+import lituchiy.max.internship.data.AppealPhotoRealm;
+import lituchiy.max.internship.data.AppealRealm;
+import lituchiy.max.internship.data.RealmController;
 import lituchiy.max.internship.utils.Utils;
 
 //[Comment] Wrong toolbar and status bar color
@@ -30,15 +32,19 @@ public class DetailActivity extends AppCompatActivity {
     @Bind(R.id.recycler_view)
     RecyclerView mRecyclerView; //[Comment] Wrong formatter DONE
     @Bind(R.id.titleTv)
-    TextView titleTv;
+    TextView mAppealTitle;
     @Bind(R.id.createdDateTv)
-    TextView createdTv;
+    TextView mAppealCreatedDate;
     @Bind(R.id.registeredDateTv)
-    TextView registeredTv;
+    TextView mAppealRegisteredDate;
     @Bind(R.id.assignedDateTv)
-    TextView assignedTv;
+    TextView mAppealAssignedDate;
     @Bind(R.id.responsibleNameTv)
-    TextView responsibleTv;
+    TextView mAppealResponsible;
+    @Bind(R.id.descriptionTv)
+    TextView mAppealDescription;
+    @Bind(R.id.statusTv)
+    TextView mAppealStatus;
 
 
     @OnClick({R.id.createdTv,
@@ -66,11 +72,10 @@ public class DetailActivity extends AppCompatActivity {
 
         setSupportActionBar(mToolbar);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(R.string.toolbarTitle);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        Appeal appeal = getAppeal();
-        setDataToView(appeal);
+
+        setDataToView(getAppeal());
 
         mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,36 +86,37 @@ public class DetailActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setFocusable(false);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
+                RecyclerView.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(layoutManager);
+    }
 
-        ImageAdapter imageAdapter = new ImageAdapter(Arrays.asList(getResources().getStringArray(R.array.image_urls)), this);
+    private void setDataToView(AppealRealm appeal) {
+        mAppealTitle.setText(appeal.getTitle());
+        mAppealCreatedDate.setText(Utils.millisecondsToString(this, appeal.getCreatedDate()));
+        mAppealRegisteredDate.setText(Utils.millisecondsToString(this, appeal.getCreatedDate()));
+        mAppealAssignedDate.setText(Utils.millisecondsToString(this, appeal.getAssignedDate()));
+        mAppealResponsible.setText(appeal.getResponsible());
+        mAppealDescription.setText(appeal.getDescription());
+        mAppealStatus.setText(appeal.getStateName());
+        if (getSupportActionBar() != null) {
+            String toolbarTitle = getString(R.string.appeal_id) + " " + appeal.getId();
+            getSupportActionBar().setTitle(toolbarTitle);
+        }
+
+        ArrayList<String> list = new ArrayList<>();
+        for (AppealPhotoRealm appealPhotoRealm : appeal.getPhoto()) {
+            list.add(appealPhotoRealm.getImageUrl());
+        }
+        ImageAdapter imageAdapter = new ImageAdapter(list, this);
         mRecyclerView.setAdapter(imageAdapter);
     }
 
-    private void setDataToView(Appeal appeal) {
-        Appeal.AppealType type = appeal.getType();
-        String typeString = getString(R.string.other);
-        switch (type) {
-            case BUILDING:
-                typeString = getString(R.string.type_building);
-                break;
-            case UTILITY:
-                typeString = getString(R.string.utilities);
-                break;
-        }
-        titleTv.setText(typeString);
-        createdTv.setText(Utils.millisecondsToString(this, appeal.getCreated()));
-        registeredTv.setText(Utils.millisecondsToString(this, appeal.getRegistered()));
-        assignedTv.setText(Utils.millisecondsToString(this, appeal.getAssigned()));
-        responsibleTv.setText(appeal.getResponsible());
-
-    }
-
-    private Appeal getAppeal() {
-        Appeal appeal = null;
-        if (getIntent().hasExtra(Appeal.APPEALITEM)) {
-            appeal = getIntent().getParcelableExtra(Appeal.APPEALITEM);
+    private AppealRealm getAppeal() {
+        AppealRealm appeal = null;
+        if (getIntent().hasExtra(AppealRealm.APPEALITEM)) {
+            appeal = RealmController.with(this).getAppeal(
+                    getIntent().getExtras().getInt(AppealRealm.APPEALITEM));
         }
         return appeal;
     }
@@ -120,7 +126,5 @@ public class DetailActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_item_list, menu);
         return true;
     }
-
-    //[Comment] ImageAdapter shouldn't be internal class DONE
 
 }

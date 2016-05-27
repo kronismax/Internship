@@ -1,16 +1,36 @@
 
 package lituchiy.max.internship.data.model;
 
-public class User {
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
+public class User {
+    @SerializedName("id")
+    @Expose
     private Integer id;
+    @SerializedName("first_name")
+    @Expose
     private String firstName;
+    @SerializedName("last_name")
+    @Expose
     private String lastName;
+    @SerializedName("middle_name")
+    @Expose
     private String middleName;
+    @SerializedName("email")
+    @Expose
     private String email;
+    @SerializedName("birthday")
+    @Expose
     private Integer birthday;
+    @SerializedName("phone")
+    @Expose
     private String phone;
+    @SerializedName("address")
+    @Expose
     private Address address;
+    @SerializedName("fb_registered")
+    @Expose
     private Integer fbRegistered;
 
     /**

@@ -19,9 +19,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     @Bind(R.id.profile_image_view)
-    ImageView mProfileImageView;
+    ImageView mProfileImage;
     @Bind(R.id.profile_name_text_view)
-    TextView mProfileTextView;
+    TextView mProfileName;
     private Realm mRealm;
 
     @Override
@@ -33,9 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         mRealm = RealmController.with(this).getRealm();
         ProfileRealm profileRealm = mRealm.where(ProfileRealm.class).findFirst();
-        mProfileTextView.setText(profileRealm.getName());
+        mProfileName.setText(profileRealm.getName());
         Picasso.with(this).load(profileRealm.getProfilePicture())
-                .error(R.drawable.marshmallow).into(mProfileImageView);
+                .error(R.drawable.marshmallow).into(mProfileImage);
 
     }
 

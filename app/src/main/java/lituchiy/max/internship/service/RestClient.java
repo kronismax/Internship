@@ -1,25 +1,24 @@
 package lituchiy.max.internship.service;
 
+import lituchiy.max.internship.utils.Constants;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestClient {
 
-    private static final String URL= "http://dev-contact.yalantis.com/rest/v1/";
-
     private static RestClient instance;
-    private ApiClient mApiClient;
+    private ApiService mApiService;
 
     private RestClient() {
 
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(URL)
+                .baseUrl(Constants.BASE_URL)
                 .build();
 
-        mApiClient = retrofit.create(ApiClient.class);
+        mApiService = retrofit.create(ApiService.class);
 
     }
 
@@ -31,8 +30,8 @@ public class RestClient {
 
     }
 
-    public ApiClient getmApiClient() {
-        return mApiClient;
+    public ApiService getmApiService() {
+        return mApiService;
     }
 
 
